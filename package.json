@@ -10,14 +10,15 @@
   "engines": {
     "node": "0.10.x"
   },
-  "main": "./lib/app.js",
+  "main": "./lib/bootstrapper.js",
   "dependencies": {
     "compression": "^1.1.0",
     "express": "",
     "morgan": "^1.3.1",
     "node-uuid": "",
     "request": "",
-    "slugify-url": ""
+    "slugify-url": "",
+    "coffee-script": ""
   },
   "devDependencies": {
     "mocha": "",
@@ -26,10 +27,11 @@
     "sinon-chai": "",
     "underscore": "",
     "mocha-jshint": "",
-    "open": ""
+    "open": "",
+    "coffee-script": ""
   },
   "scripts": {
-    "start": "node ./lib/app.js",
+    "start": "node ./lib/bootstrapper.js",
     "test": "_mocha"
   },
   "subdomain": "html2pdf",

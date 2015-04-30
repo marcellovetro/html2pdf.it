@@ -1,3 +1,3 @@
 var open = require('open');
-require('./lib/app.js');
+require('./lib/bootstrapper.js');
 open('http://localhost:8080/');
