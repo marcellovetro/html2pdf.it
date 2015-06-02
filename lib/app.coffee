@@ -11,8 +11,8 @@ process.chdir path.join(__dirname, '..')
 app.use middleware.domain()
 app.use morgan('combined')
 app.use compression()
-require('./webservices/pdf.js') app
-require('./websiteRoutes.js') app
+require('./webservices/pdf.coffee') app
+require('./websiteRoutes.coffee') app
 app.use express['static'](__dirname + '/../public', clientMaxAge: -1000 * 60 * 60 * 24)
 app.use express['static'](__dirname + '/../favicon', clientMaxAge: -1000 * 60 * 60 * 24)
 app.use (err, req, res, next) ->
