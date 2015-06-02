@@ -1,6 +1,7 @@
 'use strict'
 path = require('path')
 express = require('express')
+bodyParser = require('body-parser')
 middleware = require('./middleware')
 compression = require('compression')
 morgan = require('morgan')
@@ -11,6 +12,7 @@ process.chdir path.join(__dirname, '..')
 app.use middleware.domain()
 app.use morgan('combined')
 app.use compression()
+app.use bodyParser.json()
 require('./webservices/pdf.coffee') app
 require('./websiteRoutes.coffee') app
 app.use express['static'](__dirname + '/../public', clientMaxAge: -1000 * 60 * 60 * 24)
