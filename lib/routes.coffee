@@ -6,3 +6,5 @@ module.exports = (http) ->
     next()
   http.get '/url2pdf', (req, res, next) ->
     new ConversionController(req, res).urlToPdf()
+  http.post '/html2pdf', (req, res, next) ->
+    new ConversionController(req, res).htmlToPdf()

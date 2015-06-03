@@ -1,7 +1,13 @@
+# External dependencies
+Fs = require('fs')
+Uuid = require('node-uuid')
+
+# App dependencies
 ConversionOptions = require('../app_lib/conversion_options')
-ResponseValidator = require('../app_lib/response_validator')
+EmbeddedConversionOptions = require('../app_lib/embedded_conversion_options')
 PhantomRunner = require('../app_lib/phantom_runner')
 Request = require('request')
+ResponseValidator = require('../app_lib/response_validator')
 
 module.exports = class ConversionController
 
@@ -21,4 +27,19 @@ module.exports = class ConversionController
               @response.setHeader 'Content-disposition', "attachment; filename=#{conversionOptions.filename}.pdf"
             @response.send pdfBinary
     else
-      @response.send "Oh hai! #{JSON.stringify conversionOptions}"
+      @response.send conversionOptions.errorMessages().join("<br>")
+
+  htmlToPdf: ->
+    conversionOptions = new EmbeddedConversionOptions(@request.body)
+    if conversionOptions.looksGood()
+      tmpFilePath = "/tmp/#{Uuid.v4()}.html"
+      Fs.writeFileSync tmpFilePath, conversionOptions.html
+      conversionOptions.source_url = "file://#{tmpFilePath}"
+      runner = new PhantomRunner(conversionOptions)
+      runner.on 'done', (pdfBinary) =>
+        @response.header 'content-type', 'application/pdf'
+        if conversionOptions.download is 'true'
+          @response.setHeader 'Content-disposition', "attachment; filename=#{conversionOptions.filename}"
+        @response.send pdfBinary
+    else
+      @response.send JSON.stringify(conversionOptions.errorMessages())
