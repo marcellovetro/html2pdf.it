@@ -1,12 +1,12 @@
-spawn = require('child_process').spawn
-path = require('path')
-fs = require('fs')
+ChildProcess = require('child_process')
+Path = require('path')
+Fs = require('fs')
 Uuid = require('node-uuid')
 
 module.exports = class PhantomRunner
 
   constructor: (@conversionOptions) ->
-    @phantomProcess = spawn.apply(this, ['phantomjs', @phantomArguments()])
+    @phantomProcess = ChildProcess.spawn.apply(this, ['phantomjs', @phantomArguments()])
     @phantomProcess.stdout.on 'data', (data) ->
       console.log 'PhantomJS says: ' + data
     @phantomProcess.stderr.on 'data', (data) ->
@@ -17,8 +17,8 @@ module.exports = class PhantomRunner
       when 'done'
         @phantomProcess.on 'close', (code) =>
           if code is 0
-            pdfBinary = fs.readFileSync(@temporaryFilePath())
-            fs.unlink @temporaryFilePath()
+            pdfBinary = Fs.readFileSync(@temporaryFilePath())
+            Fs.unlink @temporaryFilePath()
             callback(pdfBinary)
       else
         throw new Error("PhantomRunner does not support event: #{event}")
@@ -40,7 +40,7 @@ module.exports = class PhantomRunner
     @_temporaryFilePath ?= @generateTmpPath()
 
   generateTmpPath: ->
-    path.join('/tmp', Uuid.v4() + '.pdf')
+    Path.join('/tmp', Uuid.v4() + '.pdf')
 
   absolutePathToPhantomScript: ->
-    path.join(__dirname, '../rasterize/rasterize.js')
+    Path.join(__dirname, '../rasterize/rasterize.js')

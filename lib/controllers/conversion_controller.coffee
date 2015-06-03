@@ -1,7 +1,7 @@
 ConversionOptions = require('../app_lib/conversion_options')
 ResponseValidator = require('../app_lib/response_validator')
 PhantomRunner = require('../app_lib/phantom_runner')
-request = require('request')
+Request = require('request')
 
 module.exports = class ConversionController
 
@@ -10,7 +10,7 @@ module.exports = class ConversionController
   urlToPdf: ->
     conversionOptions = new ConversionOptions(@request.query)
     if conversionOptions.looksGood()
-      preflight = request.head(conversionOptions.source_url)
+      preflight = Request.head(conversionOptions.source_url)
       preflight.on 'response', (httpResponse) =>
         sourceValidator = new ResponseValidator(httpResponse)
         if sourceValidator.looksGood()

@@ -1,4 +1,5 @@
-slugifyUrl = require('slugify-url')
+SlugifyUrl =
+  slugify: require('slugify-url')
 
 module.exports = class ConversionOptions
 
@@ -8,7 +9,7 @@ module.exports = class ConversionOptions
     @zoom = queryParams.zoom or '1'
     @source_url = queryParams.source_url or ''
     @paperFormat = 'A4'
-    @filename = queryParams.filename or slugifyUrl(@source_url)
+    @filename = queryParams.filename or SlugifyUrl.slugify(@source_url)
     @download = queryParams.download or 'true'
 
   looksGood: ->
