@@ -14,6 +14,7 @@
   "dependencies": {
     "compression": "^1.1.0",
     "express": "",
+    "body-parser": "",
     "morgan": "^1.3.1",
     "node-uuid": "",
     "request": "",
