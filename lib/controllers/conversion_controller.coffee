@@ -21,4 +21,4 @@ module.exports = class ConversionController
               @response.setHeader 'Content-disposition', "attachment; filename=#{conversionOptions.filename}.pdf"
             @response.send pdfBinary
     else
-      @response.send "Oh hai! #{JSON.stringify conversionOptions}"
+      @response.send conversionOptions.errorMessages().join("<br>")
