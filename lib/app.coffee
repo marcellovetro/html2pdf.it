@@ -13,14 +13,9 @@ app.use middleware.domain()
 app.use morgan('combined')
 app.use compression()
 app.use bodyParser.json()
-require('./webservices/pdf.coffee') app
-require('./websiteRoutes.coffee') app
+require('./routes.coffee') app
 app.use express['static'](__dirname + '/../public', clientMaxAge: -1000 * 60 * 60 * 24)
 app.use express['static'](__dirname + '/../favicon', clientMaxAge: -1000 * 60 * 60 * 24)
-app.use (err, req, res, next) ->
-  console.error err.stack
-  res.status(500).send 'Something broke!'
-  return
 app.listen config.http.port
 console.log 'Listening on http://localhost:' + config.http.port + '/'
 module.exports = app: app

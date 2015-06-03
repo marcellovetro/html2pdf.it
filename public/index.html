@@ -50,20 +50,9 @@
 			margin-bottom: 8px;
 		}
 
-		.options {
-			-webkit-transform: scale(0.6);
-			-moz-transform: scale(0.6);
-			-ms-transform: scale(0.6);
-			-o-transform: scale(0.6);
-			transform: scale(0.6);
-		}
-
-		.options .btn-group:first-child {
-			margin-right: 19px;
-		}
-
-		.options .btn-group:last-child {
-			margin-left: 19px;
+		.options .btn-group {
+			display: block;
+			margin: 5px
 		}
 
 		.container-narrow {
@@ -93,34 +82,6 @@
 
 		.jumbotron .lead {
 			margin-top: 21px;
-		}
-
-		@media (min-width: 500px) {
-			.jumbotron h1 {
-				font-size: 50px;
-			}
-
-			#pdfForm {
-				-webkit-transform: scale(1.2);
-				-moz-transform: scale(1.2);
-				-ms-transform: scale(1.2);
-				-o-transform: scale(1.2);
-				transform: scale(1.2);
-			}
-		}
-
-		@media (min-width: 700px) {
-			.jumbotron h1 {
-				font-size: 72px;
-			}
-
-			#pdfForm {
-				-webkit-transform: scale(1.5);
-				-moz-transform: scale(1.5);
-				-ms-transform: scale(1.5);
-				-o-transform: scale(1.5);
-				transform: scale(1.5);
-			}
 		}
 
 		.contents {
@@ -173,30 +134,19 @@
 			}
 		</script>
 		<iframe id="downloadFrame" style="display:none"></iframe>
-		<form id="pdfForm" class="form-inline" method="GET" action="/">
+		<form id="pdfForm" class="form-inline" method="GET" action="/url2pdf">
 			<div id="pdfInput" class="input-prepend input-append">
 				<span class="add-on">Web page</span>
-				<input id="url" name="url" type="text" class="input-large input" placeholder="URL"
-				       value="www.html2pdf.it">
+				<input id="source_url" name="source_url" type="text" class="input-large input" placeholder="URL"
+				       value="http://www.wikipedia.org">
 				<button type="submit" class="btn" id="getPdfButton">Get PDF now!</button>
 			</div>
-			<div id="options" class="options" style="display:none">
-				<div class="btn-group" data-toggle-name="format" data-toggle="buttons-radio">
-					<button type="button" disabled class="btn">format</button>
-					<button type="button" value="A3" class="btn" data-toggle="button">A3</button>
-					<button type="button" value="A4" class="btn" data-toggle="button">A4</button>
-					<button type="button" value="A5" class="btn" data-toggle="button">A5</button>
-					<button type="button" value="Legal" class="btn" data-toggle="button">Legal</button>
-					<button type="button" value="Letter" class="btn" data-toggle="button">Letter</button>
-					<button type="button" value="Tabloid" class="btn" data-toggle="button">Tabloid</button>
-				</div>
+			<div class="options">
 				<div class="btn-group" data-toggle-name="orientation" data-toggle="buttons-radio">
 					<button type="button" disabled class="btn">orientation</button>
 					<button type="button" value="portrait" class="btn" data-toggle="button">portrait</button>
 					<button type="button" value="landscape" class="btn" data-toggle="button">landscape</button>
 				</div>
-			</div>
-			<div id="options2" class="options" style="display:none">
 				<div class="btn-group" data-toggle-name="margin" data-toggle="buttons-radio">
 					<button type="button" disabled class="btn">margin</button>
 					<button type="button" value="0cm" class="btn" data-toggle="button">0cm</button>
@@ -209,13 +159,11 @@
 					<button type="button" value="true" class="btn" data-toggle="button">download as file</button>
 				</div>
 			</div>
+
 			<input id="doDownload" type="hidden" name="download" value="false"/>
-			<input type="hidden" name="format" value="A4"/>
-			<input type="hidden" name="downloadToken" id="downloadToken"/>
 			<input type="hidden" name="orientation" value="portrait"/>
 			<input type="hidden" name="margin" value="1cm"/>
 		</form>
-		<button id="optionsButton" type="button" class="hidden btn btn-link">options</button>
 		<p class="lead">The pdf will be made as when you print a web page to a printer. Some web pages have not been
 			optimized for printing and will not look pretty</code></p>
 
@@ -424,14 +372,6 @@ var html2pdf = {
 				}
 			});
 		});
-		$('#optionsButton').on("click", function () {
-			$("#optionsButton").hide(200, function () {
-				$('#options').show(200);
-				$('#options2').show(200);
-			});
-
-		});
-		$('#optionsButton').removeClass("hidden");
 	});
 	var _gaq = _gaq || [];
 	_gaq.push(['_setAccount', 'UA-11089671-7']);
