@@ -3,6 +3,7 @@ SlugifyUrl =
 
 module.exports = class ConversionOptions
 
+  # MV: Phantomjs Paramenters from request queryString
   constructor: (queryParams) ->
     @margin = queryParams.margin or '1cm'
     @orientation = queryParams.orientation or 'portrait'

@@ -23,6 +23,7 @@ module.exports = class PhantomRunner
       else
         throw new Error("PhantomRunner does not support event: #{event}")
 
+  # MV: PhantomJS Call Arguments
   phantomArguments: ->
     [
       '--web-security=no'
